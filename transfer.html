@@ -20,7 +20,7 @@
     <h1 class="page-title">New Transfer</h1>
     <p class="page-sub">A secured transaction with confirmation</p>
 
-    <form id="transferForm" class="transfer-form">
+    <form id="transferForm" class="transfer-form" onsubmit="return false;">
       <div class="input-group">
         <label>Recipient</label>
         <input type="text" id="recipient" placeholder="Full Name" required />
@@ -49,7 +49,7 @@
         <span class="gold">€ 0.00 · Private</span>
       </div>
 
-      <button type="submit" class="btn-gold">Transfer Funds</button>
+      <button type="submit" id="submitBtn" class="btn-gold">Transfer Funds</button>
     </form>
   </main>
 
@@ -61,7 +61,7 @@
         Insufficient cleared funds on the account. Please contact Private Banking support.
       </p>
       <div class="modal-actions">
-        <button type="button" class="btn-ghost" id="cancelBtn">Cancel</button>
+        <button type="button" class="btn-ghost" onclick="document.getElementById('errorModal').classList.remove('active')">Cancel</button>
         <button type="button" class="btn-gold small" onclick="location.href='dashboard.html'">Back to Dashboard</button>
       </div>
     </div>
