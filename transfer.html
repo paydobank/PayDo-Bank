@@ -53,7 +53,6 @@
     </form>
   </main>
 
-  <!-- Error modal -->
   <div class="modal-overlay" id="errorModal">
     <div class="modal">
       <div class="modal-icon">⚠</div>
@@ -62,40 +61,12 @@
         Insufficient cleared funds on the account. Please contact Private Banking support.
       </p>
       <div class="modal-actions">
-        <button class="btn-ghost" onclick="closeModal()">Cancel</button>
-        <button class="btn-gold small" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+        <button type="button" class="btn-ghost" id="cancelBtn">Cancel</button>
+        <button type="button" class="btn-gold small" onclick="location.href='dashboard.html'">Back to Dashboard</button>
       </div>
     </div>
   </div>
 
-  <script>
-    const u = JSON.parse(localStorage.getItem('paydo_user') || 'null');
-    if (!u) window.location.href = 'index.html';
-
-    const form = document.getElementById('transferForm');
-    const modal = document.getElementById('errorModal');
-    const errorText = document.getElementById('errorText');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const amount = parseFloat(document.getElementById('amount').value);
-
-      if (amount > 100000) {
-        errorText.textContent =
-          'Daily Private Banking limit exceeded (€100,000). Please contact your personal manager.';
-      } else if (amount > 50000) {
-        errorText.textContent =
-          'Additional 2FA confirmation is required for amounts over €50,000. Please contact support.';
-      } else {
-        errorText.textContent =
-          'The transaction cannot be completed: the recipient has not passed PayDo Secure verification. Please try again later.';
-      }
-      modal.classList.add('active');
-    });
-
-    function closeModal() {
-      modal.classList.remove('active');
-    }
-  </script>
+  <script src="js/transfer.js"></script>
 </body>
 </html>
