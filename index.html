@@ -1,1 +1,96 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PayDo | Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+  <div class="demo-banner">
+    DEMONSTRATION ENVIRONMENT · NOT A REAL BANK
+  </div>
+
+  <main class="login-container">
+
+    <div class="login-logo">
+      <div class="brand-icon">P</div>
+      <span>PayDo</span>
+    </div>
+
+    <div class="login-card">
+      <div class="eyebrow">WELCOME TO PAYDO</div>
+      <h1>Sign in</h1>
+      <p class="login-description">
+        Access your demonstration account.
+      </p>
+
+      <form id="loginForm">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          placeholder="Enter username"
+          autocomplete="off"
+          required
+        >
+
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter password"
+          required
+        >
+
+        <p id="loginError" class="error-message" hidden>
+          Incorrect demo credentials.
+        </p>
+
+        <button class="gold-button" type="submit">
+          Sign In
+        </button>
+      </form>
+
+      <div class="demo-credentials">
+        <span>DEMO ACCESS</span>
+        <p>Username: demo</p>
+        <p>Password: paydo123</p>
+      </div>
+    </div>
+
+    <div class="login-footer">
+      PayDo Digital Banking · Fictional Demo
+    </div>
+
+  </main>
+
+  <script>
+    if (sessionStorage.getItem("paydoDemoLogin") === "true") {
+      location.replace("dashboard.html");
+    }
+
+    document.getElementById("loginForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const username =
+          document.getElementById("username").value;
+
+        const password =
+          document.getElementById("password").value;
+
+        if (username === "demo" && password === "paydo123") {
+          sessionStorage.setItem("paydoDemoLogin", "true");
+          location.href = "dashboard.html";
+        } else {
+          document.getElementById("loginError").hidden = false;
+        }
+      });
+  </script>
+
+</body>
+</html>
+
