@@ -16,12 +16,11 @@
     <div class="topbar-right">
       <span class="notif">🔔</span>
       <span class="user-chip" id="userChip">A·V</span>
-      <button class="btn-logout" onclick="logout()">Sign Out</button>
+      <button class="btn-logout" id="logoutBtn">Sign Out</button>
     </div>
   </header>
 
   <main class="container">
-    <!-- Account holder -->
     <section class="owner-card">
       <div class="owner-info">
         <p class="label">Account Holder</p>
@@ -32,7 +31,6 @@
       <div class="owner-avatar" id="avatar">AV</div>
     </section>
 
-    <!-- Balance -->
     <section class="balance-card">
       <div class="balance-header">
         <span class="label">Total Balance</span>
@@ -55,7 +53,6 @@
       </div>
     </section>
 
-    <!-- Actions -->
     <section class="actions">
       <button class="action-btn primary" onclick="location.href='transfer.html'">
         <span class="icon">↗</span>
@@ -66,7 +63,6 @@
       <button class="action-btn"><span class="icon">▤</span><span>Statement</span></button>
     </section>
 
-    <!-- Transactions -->
     <section class="transactions">
       <div class="section-header">
         <h3>Recent Transactions</h3>
@@ -117,23 +113,6 @@
     </section>
   </main>
 
-  <script>
-    const u = JSON.parse(localStorage.getItem('paydo_user') || 'null');
-    if (!u) window.location.href = 'index.html';
-
-    if (u) {
-      const initials = u.name.split(' ').map(n => n[0]).join('').toUpperCase();
-      document.getElementById('avatar').textContent = initials;
-      document.getElementById('userChip').textContent = initials;
-      document.getElementById('ownerName').textContent = u.name;
-      document.getElementById('ownerAccount').textContent =
-        'Account: •••• ' + u.account.slice(-4);
-    }
-
-    function logout() {
-      localStorage.removeItem('paydo_user');
-      window.location.href = 'index.html';
-    }
-  </script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>
