@@ -1,96 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PayDo | Login</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PayDo — Private Banking</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 </head>
 <body class="login-page">
+  <div class="gold-particles"></div>
 
-  <div class="demo-banner">
-    DEMONSTRATION ENVIRONMENT · NOT A REAL BANK
-  </div>
-
-  <main class="login-container">
-
-    <div class="login-logo">
-      <div class="brand-icon">P</div>
-      <span>PayDo</span>
+  <div class="login-container">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <h1 class="brand-name">PayDo</h1>
+      <p class="brand-tagline">Private Banking · Est. 2024</p>
     </div>
 
-    <div class="login-card">
-      <div class="eyebrow">WELCOME TO PAYDO</div>
-      <h1>Sign in</h1>
-      <p class="login-description">
-        Access your demonstration account.
-      </p>
-
-      <form id="loginForm">
-        <label for="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          placeholder="Enter username"
-          autocomplete="off"
-          required
-        >
-
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Enter password"
-          required
-        >
-
-        <p id="loginError" class="error-message" hidden>
-          Incorrect demo credentials.
-        </p>
-
-        <button class="gold-button" type="submit">
-          Sign In
-        </button>
-      </form>
-
-      <div class="demo-credentials">
-        <span>DEMO ACCESS</span>
-        <p>Username: demo</p>
-        <p>Password: paydo123</p>
+    <form id="loginForm" class="login-form">
+      <div class="input-group">
+        <label>Account Number</label>
+        <input type="text" id="account" placeholder="XXXX XXXX XXXX" required />
       </div>
-    </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+
+      <button type="submit" class="btn-gold">
+        <span>Sign In</span>
+      </button>
+
+      <p class="secure-note">
+        <span class="lock-icon">🔒</span>
+        Secured with 256-bit encryption
+      </p>
+    </form>
 
     <div class="login-footer">
-      PayDo Digital Banking · Fictional Demo
+      <span>© 2024 PayDo Private Banking</span>
+      <span>Zurich · London · Dubai</span>
     </div>
-
-  </main>
+  </div>
 
   <script>
-    if (sessionStorage.getItem("paydoDemoLogin") === "true") {
-      location.replace("dashboard.html");
-    }
-
-    document.getElementById("loginForm")
-      .addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const username =
-          document.getElementById("username").value;
-
-        const password =
-          document.getElementById("password").value;
-
-        if (username === "demo" && password === "paydo123") {
-          sessionStorage.setItem("paydoDemoLogin", "true");
-          location.href = "dashboard.html";
-        } else {
-          document.getElementById("loginError").hidden = false;
-        }
-      });
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const acc = document.getElementById('account').value.trim();
+      const pwd = document.getElementById('password').value.trim();
+      if (acc && pwd) {
+        localStorage.setItem('paydo_user', JSON.stringify({
+          account: acc,
+          name: 'Alexander Volkov',
+          loginAt: Date.now()
+        }));
+        window.location.href = 'dashboard.html';
+      }
+    });
   </script>
-
 </body>
 </html>
-
