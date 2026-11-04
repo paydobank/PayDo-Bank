@@ -1,25 +1,40 @@
 // js/transfer.js — transfer logic for transfer.html
 
+console.log('[PayDo] transfer.js loaded');
+
 (function () {
+  // Мягкая проверка авторизации — не редиректим, чтобы можно было тестировать
   const raw = localStorage.getItem('paydo_user');
   const user = raw ? JSON.parse(raw) : null;
-
   if (!user) {
-    window.location.href = 'index.html';
-    return;
+    console.warn('[PayDo] No logged user — prototype mode');
   }
 
   const form = document.getElementById('transferForm');
   const modal = document.getElementById('errorModal');
   const errorText = document.getElementById('errorText');
-  const cancelBtn = document.getElementById('cancelBtn');
 
-  if (!form || !modal || !errorText) return;
+  if (!form) {
+    console.error('[PayDo] form#transferForm not found');
+    return;
+  }
+  if (!modal) {
+    console.error('[PayDo] #errorModal not found');
+    return;
+  }
+  if (!errorText) {
+    console.error('[PayDo] #errorText not found');
+    return;
+  }
 
-  form.addEventListener('submit', (e) => {
+  console.log('[PayDo] elements found, binding submit');
+
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
+    e.stopPropagation();
 
-    const amount = parseFloat(document.getElementById('amount').value);
+    const amountInput = document.getElementById('amount');
+    const amount = parseFloat(amountInput.value);
 
     if (!amount || amount <= 0) {
       showError('Please enter a valid amount.');
@@ -44,26 +59,19 @@
     }
   });
 
-  if (cancelBtn) {
-    cancelBtn.addEventListener('click', closeModal);
-  }
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeModal();
-    }
-  });
-
   function showError(message) {
+    console.log('[PayDo] showError:', message);
     errorText.textContent = message;
     modal.classList.add('active');
   }
 
-  function closeModal() {
-    modal.classList.remove('active');
-  }
+  // Закрытие по клику на фон
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) modal.classList.remove('active');
+  });
+
+  // Закрытие по Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') modal.classList.remove('active');
+  });
 })();
